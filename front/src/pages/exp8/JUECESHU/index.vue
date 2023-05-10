@@ -1,40 +1,79 @@
 <template>
-  <div class="container">
-    <p>Notice：改动表一将清空表三的数据，修改表四的数据！</p>
-    <EditableForm1 :dataSource="dataSource1" :columns="columns1" @updateData="handleDataSource1Update"
-      >一、基础经济数据表</EditableForm1
-    >
-    <HorizontalTree :dataSource="dataSource1"></HorizontalTree>
+  <div>
+    <h2>实验要求</h2>
+    <p>某项目的有关经济数据如下表一所示。试求该项目的净现值期望值并进行风险决策分析。其中无风险折现率取8%。</p>
+    <h2>实验步骤</h2>
+    <a-steps direction="vertical" size="small">
+      <a-step title="查看基础经济数据表" description="初步了解决策树" />
+      <a-step
+        title="计算净现值"
+        description="根据年金现值公式和终值现值公式计算每个不确定因素的净现值。数据会动态地显示在下方的决策树中"
+      />
+      <a-step
+        title="计算每条现金流量序列的净现值、概率及相应概率"
+        description="根据年金现值公式和终值现值公式计算相应数据"
+      />
+      <a-step title="净现值计算表格（参考）" description="根据年金现值公式和终值现值公式计算" />
+      <a-step title="制作净现值累积概率图" description="把净现值从小到大按顺序排列成表，并求出各净现值累积概率" />
+      <a-step title="计算ENPV，得出结论" description="分析项目风险" />
+    </a-steps>
 
-    <EditableForm2 :dataSource="dataSource2" :columns="columns2" @updateData="handleDataSource2Update"
-      >二、现值和净现值序列决策树图</EditableForm2
-    >
-    <HorizontalTree :dataSource="dataSource2"></HorizontalTree>
+    <h2 style="margin-top: 20px; margin-bottom: 20px">实验内容</h2>
 
-    <EditableForm2 :dataSource="dataSource3" :columns="columns3" @updateData="handleDataSource3Update"
-      >三、净现值计算表格</EditableForm2
-    >
-
-    <EditableForm2 :dataSource="dataSource4" :columns="columns4" @updateData="handleDataSource4Update"
-      >四、净现值计算表格（参考）</EditableForm2
-    >
-
-    <EditableForm1 :dataSource="dataSource5" :columns="columns5" @updateData="handleDataSource5Update"
-      >五、净现值与其累计概率表</EditableForm1
-    >
-
-    <div>
-      本项目的期望净现值(ENPV)为 <a-input v-model:value="enpv" allowClear style="width: 10%"></a-input>万元，
-      但是存在净现值小于零的可能性为 <a-input v-model:value="risk" allowClear style="width: 10%"></a-input>%的风险。
-    </div>
+    <a-timeline>
+      <a-timeline-item>
+        <p>1、查看基础经济数据表</p>
+        <EditableForm1 :dataSource="dataSource1" :columns="columns1" @updateData="handleDataSource1Update"
+          >一、基础经济数据表</EditableForm1
+        >
+        <a-tooltip placement="topLeft">
+          <template #title>内部数据将随着上表的变化自动更新</template>
+          <HorizontalTree :dataSource="dataSource1"></HorizontalTree>
+        </a-tooltip>
+      </a-timeline-item>
+      <a-timeline-item>
+        <p>2、根据年金现值公式和终值现值公式计算每个不确定因素的净现值<strong>（精确到小数点后两位）</strong></p>
+        <EditableForm2 :dataSource="dataSource2" :columns="columns2" @updateData="handleDataSource2Update"
+          >二、现值和净现值序列决策树图</EditableForm2
+        >
+        <a-tooltip placement="topLeft">
+          <template #title>内部数据将随着上表的变化自动更新</template>
+          <HorizontalTree :dataSource="dataSource2"></HorizontalTree>
+        </a-tooltip>
+      </a-timeline-item>
+      <a-timeline-item>
+        <p>3、计算每条现金流量序列的净现值、概率及相应概率<strong>（精确到小数点后两位）</strong></p>
+        <EditableForm2 :dataSource="dataSource3" :columns="columns3" @updateData="handleDataSource3Update"
+          >三、净现值计算表格</EditableForm2
+        >
+      </a-timeline-item>
+      <a-timeline-item>
+        <EditableForm2 :dataSource="dataSource4" :columns="columns4" @updateData="handleDataSource4Update"
+          >四、净现值计算表格（参考，后续将删去）</EditableForm2
+        >
+      </a-timeline-item>
+      <a-timeline-item>
+        <p>4、制作净现值累积概率图<strong>（精确到小数点后两位）</strong></p>
+        <EditableForm1 :dataSource="dataSource5" :columns="columns5" @updateData="handleDataSource5Update"
+          >五、净现值与其累计概率表</EditableForm1
+        >
+      </a-timeline-item>
+      <a-timeline-item>
+        <div>
+          <p>5、计算ENPV，得出结论<strong>（精确到小数点后两位）</strong></p>
+          本项目的期望净现值(ENPV)为 <a-input v-model:value="enpv" allowClear style="width: 10%"></a-input>万元，
+          但是存在净现值小于零的可能性为 <a-input v-model:value="risk" allowClear style="width: 10%"></a-input>%的风险。
+        </div>
+      </a-timeline-item>
+    </a-timeline>
   </div>
 </template>
 
 <script>
   import { Table } from 'ant-design-vue';
-  import HorizontalTree from '@/pages/exp6/JUECESHU/HorizontalTree.vue';
-  import EditableForm1 from '@/pages/exp6/JUECESHU/EditableForm1.vue';
-  import EditableForm2 from '@/pages/exp6/JUECESHU/EditableForm2.vue';
+  import HorizontalTree from '@/pages/exp8/JUECESHU/HorizontalTree.vue';
+  import EditableForm1 from '@/pages/exp8/JUECESHU/EditableForm1.vue';
+  import EditableForm2 from '@/pages/exp8/JUECESHU/EditableForm2.vue';
   export default {
     components: {
       'a-table': Table,

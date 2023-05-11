@@ -40,16 +40,20 @@
 
   const { logout, profile } = useAccountStore();
   const { setAuthorities } = useAuthStore();
-  
-  // onMounted(()=>{console.log(1)}) 
+
+  // onMounted(()=>{console.log(1)})
 
   // 获取个人信息
-  profile().then((response) => {
-    const { permissions, account } = response;
-    setAuthorities(permissions);
-    user.name = account.name;
-    user.avatar = account.avatar;
-  }).catch((e)=>{console.log(e)});
+  profile()
+    .then((response) => {
+      const { permissions, account } = response;
+      setAuthorities(permissions);
+      user.name = account.name;
+      user.avatar = account.avatar;
+    })
+    .catch((e) => {
+      console.log(e);
+    });
 
   const showSetting = ref(false);
   const router = useRouter();

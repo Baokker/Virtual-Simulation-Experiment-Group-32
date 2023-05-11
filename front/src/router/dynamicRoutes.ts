@@ -118,7 +118,7 @@ function mergeRoutes(target: readonly RouteRecordRaw[], source: RouteRecordRaw[]
     });
     return _map;
   };
-
+  
   // 合并
   const mergeMap = (
     target?: Map<string, RouteRecordMap>,
@@ -196,6 +196,8 @@ export function addRoutes(routes: RouteOption[]) {
   const routesRaw: RouteRecordRaw[] = parseRoutes(routes);
   routesRaw.forEach((routeRaw) => router.addRoute(routeRaw));
   router.options.routes = mergeRoutes(router.options.routes, routesRaw);
+  console.log('router.options.routes')
+  console.log(router.options.routes)
 }
 
 /**

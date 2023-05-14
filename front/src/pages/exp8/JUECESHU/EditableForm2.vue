@@ -1,8 +1,10 @@
 <template>
   <div>
-    <h2>
-      <slot></slot>
-    </h2>
+    <div style="text-align: center;">
+      <h4>
+        <slot></slot>
+      </h4>
+    </div>
     <a-table :columns="columns" :pagination="false" :data-source="dataSourceCopy" bordered>
       <template
         v-for="(col, index) in columns.map((item) => item.dataIndex).filter((item) => item != 'operation')"
@@ -40,7 +42,7 @@
 </template>
 
 <script>
-// 可以编辑，但不能增减行列的表格
+  // 可以编辑，但不能增减行列的表格
   import { cloneDeep } from 'lodash-es';
   import { Table } from 'ant-design-vue';
 

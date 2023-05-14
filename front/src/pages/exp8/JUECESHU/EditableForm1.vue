@@ -1,8 +1,10 @@
 <template>
   <div>
-    <h2>
-      <slot></slot>
-    </h2>
+    <div style="text-align: center;">
+      <h4>
+        <slot></slot>
+      </h4>
+    </div>
     <a-table :columns="columns" :pagination="false" :data-source="dataSourceCopy" bordered>
       <template
         v-for="(col, index) in columns.map((item) => item.dataIndex).filter((item) => item != 'operation')"

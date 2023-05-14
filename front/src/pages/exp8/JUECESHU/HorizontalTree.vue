@@ -1,5 +1,12 @@
 <template>
-  <div ref="container"></div>
+  <div>
+    <div ref="container"></div>
+    <div style="text-align: center">
+      <h4>
+        <slot></slot>
+      </h4>
+    </div>
+  </div>
 </template>
 
 <script>

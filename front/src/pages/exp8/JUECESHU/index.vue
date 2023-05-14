@@ -6,61 +6,84 @@
     <a-steps direction="vertical" size="small">
       <a-step title="查看基础经济数据表" description="初步了解决策树" />
       <a-step
-        title="计算净现值"
-        description="根据年金现值公式和终值现值公式计算每个不确定因素的净现值。数据会动态地显示在下方的决策树中"
+        title="计算每个不确定因素的净现值"
+        description="根据年金现值公式和终值现值公式，计算出每个不确定因素的净现值，并将数据填入到表2中。数据会动态地显示在下方的决策树中"
       />
       <a-step
         title="计算每条现金流量序列的净现值、概率及相应概率"
-        description="根据年金现值公式和终值现值公式计算相应数据"
+        description="针对每条现金流量序列，计算出其净现值、概率和加权净现值，并将数据填入到表3中，填入到表4中"
       />
-      <a-step title="净现值计算表格（参考）" description="根据年金现值公式和终值现值公式计算" />
       <a-step title="制作净现值累积概率图" description="把净现值从小到大按顺序排列成表，并求出各净现值累积概率" />
-      <a-step title="计算ENPV，得出结论" description="分析项目风险" />
+      <a-step title="计算ENPV，得出结论" description="根据净现值与其累计概率表，计算出期望净现值ENPV" />
     </a-steps>
 
     <h2 style="margin-top: 20px; margin-bottom: 20px">实验内容</h2>
 
     <a-timeline>
       <a-timeline-item>
-        <p>1、查看基础经济数据表</p>
+        <h2>第一步、查看基础经济数据表</h2>
+        <p>
+          PS 如果需要编辑数据，请点击右侧的“编辑”按钮。请保证每个不确定因素的概率之和为1，并且开始年份和结束年份相同。
+        </p>
         <EditableForm1 :dataSource="dataSource1" :columns="columns1" @updateData="handleDataSource1Update"
-          >一、基础经济数据表</EditableForm1
+          >表1 基础经济数据表</EditableForm1
         >
         <a-tooltip placement="topLeft">
           <template #title>内部数据将随着上表的变化自动更新</template>
-          <HorizontalTree :dataSource="dataSource1"></HorizontalTree>
+          <HorizontalTree :dataSource="dataSource1">图1 基于 表1 基础经济数据表 的决策树</HorizontalTree>
         </a-tooltip>
       </a-timeline-item>
       <a-timeline-item>
-        <p>2、根据年金现值公式和终值现值公式计算每个不确定因素的净现值<strong>（精确到小数点后两位）</strong></p>
+        <h2>第二步、计算每个不确定因素的净现值</h2>
+        <p>
+          请根据年金现值公式和终值现值公式，计算出每个不确定因素的净现值，并将数据填入到表2中。<strong
+            >（精确到小数点后两位）</strong
+          >
+        </p>
+        <p>（点击右侧的“编辑”按钮后可编辑，点击”保存“确认）</p>
         <EditableForm2 :dataSource="dataSource2" :columns="columns2" @updateData="handleDataSource2Update"
-          >二、现值和净现值序列决策树图</EditableForm2
+          >表2 不确定因素现值表</EditableForm2
         >
         <a-tooltip placement="topLeft">
           <template #title>内部数据将随着上表的变化自动更新</template>
-          <HorizontalTree :dataSource="dataSource2"></HorizontalTree>
+          <HorizontalTree :dataSource="dataSource2">图2 基于 表2 不确定因素现值表 的决策树</HorizontalTree>
         </a-tooltip>
       </a-timeline-item>
       <a-timeline-item>
-        <p>3、计算每条现金流量序列的净现值、概率及相应概率<strong>（精确到小数点后两位）</strong></p>
+        <h2>第三步、计算每条现金流量序列</h2>
+        <p>
+          请针对每条现金流量序列，计算出其净现值、概率和加权净现值<strong>（精确到小数点后两位）</strong>，并将数据填入到表3中。
+        </p>
+        <p>表3中的行数是根据不确定因素自动生成的。</p>
+        <p>（点击右侧的“编辑”按钮后可编辑，点击”保存“确认）</p>
         <EditableForm2 :dataSource="dataSource3" :columns="columns3" @updateData="handleDataSource3Update"
-          >三、净现值计算表格</EditableForm2
+          >表3 净现值计算表格</EditableForm2
         >
       </a-timeline-item>
       <a-timeline-item>
+        <p>在demo中给出参考的净现值计算表格。</p>
         <EditableForm2 :dataSource="dataSource4" :columns="columns4" @updateData="handleDataSource4Update"
-          >四、净现值计算表格（参考，后续将删去）</EditableForm2
+          >表4 净现值计算表格（参考，后续将删去）</EditableForm2
         >
       </a-timeline-item>
       <a-timeline-item>
-        <p>4、制作净现值累积概率图<strong>（精确到小数点后两位）</strong></p>
+        <h2>第四步、制作净现值累积概率图</h2>
+        <p>
+          请根据表3计算得出的结果，将净现值的累计值及其对应概率从小到大按顺序排列，填入到表4中。<strong
+            >（精确到小数点后两位）</strong
+          >
+        </p>
+        <p>
+          （点击右侧的“编辑”按钮后可编辑，点击”保存“确认；点击右侧的”删除“按钮后可删除本行；点击右下角的“增加一行”可以新增一行；）
+        </p>
         <EditableForm1 :dataSource="dataSource5" :columns="columns5" @updateData="handleDataSource5Update"
-          >五、净现值与其累计概率表</EditableForm1
+          >表5 净现值与其累计概率表</EditableForm1
         >
       </a-timeline-item>
       <a-timeline-item>
         <div>
-          <p>5、计算ENPV，得出结论<strong>（精确到小数点后两位）</strong></p>
+          <h2>第五步、计算ENPV，得出结论</h2>
+          <p>根据净现值与其累计概率表，计算出期望净现值ENPV<strong>（精确到小数点后两位）</strong>，并得出结论。</p>
           本项目的期望净现值(ENPV)为 <a-input v-model:value="enpv" allowClear style="width: 10%"></a-input>万元，
           但是存在净现值小于零的可能性为 <a-input v-model:value="risk" allowClear style="width: 10%"></a-input>%的风险。
         </div>
@@ -269,7 +292,7 @@
             },
           },
           {
-            title: '现值（万元）',
+            title: '净现值（万元）',
             dataIndex: 'value',
             slots: {
               customRender: 'value',
@@ -292,6 +315,13 @@
         ],
         dataSource3: [],
         columns3: [
+          {
+            title: '编号',
+            dataIndex: 'key',
+            slots: {
+              customRender: 'key',
+            },
+          },
           {
             title: '净现值（万元）',
             dataIndex: 'netValue',
@@ -323,6 +353,13 @@
         ],
         dataSource4: [],
         columns4: [
+          {
+            title: '编号',
+            dataIndex: 'key',
+            slots: {
+              customRender: 'key',
+            },
+          },
           {
             title: '投资现值',
             dataIndex: 'investmentPresentValue',
@@ -452,6 +489,7 @@
         }
         for (let i = 0; i < tableLength; i++) {
           this.dataSource3.push({
+            key: (i + 1).toString(),
             netValue: undefined,
             probability: undefined,
             weightedNetPresentValue: undefined,
@@ -467,6 +505,8 @@
         const investmentPresentValue = this.dataSource1.filter((item) => item.uncertainty === '投资');
         const annualCostPresentValue = this.dataSource1.filter((item) => item.uncertainty === '年经营成本');
         const annualRevenuePresentValue = this.dataSource1.filter((item) => item.uncertainty === '年销售收入');
+
+        let count = 1;
 
         for (let i = 0; i < investmentPresentValue.length; i++) {
           for (let j = 0; j < annualCostPresentValue.length; j++) {
@@ -490,6 +530,7 @@
                 investmentPresentValue[i].end_year - investmentPresentValue[i].start_year
               );
               this.dataSource4.push({
+                key: count++,
                 investmentPresentValue: investmentPresentValue[i].value,
                 investmentProbability: investmentPresentValue[i].probability,
                 annualCostPresentValue: cost.toFixed(2),

@@ -56,8 +56,8 @@
         </p>
         <p>表3中的行数是根据不确定因素自动生成的。</p>
         <p>（点击右侧的“编辑”按钮后可编辑，点击”保存“确认）</p>
-        <EditableForm2 :dataSource="dataSource3" :columns="columns3" @updateData="handleDataSource3Update"
-          >表3 净现值计算表格</EditableForm2
+        <EditableForm3 :dataSource="dataSource3" :columns="columns3" @updateData="handleDataSource3Update"
+          >表3 净现值计算表格</EditableForm3
         >
       </a-timeline-item>
       <a-timeline-item>
@@ -67,17 +67,20 @@
         >
       </a-timeline-item>
       <a-timeline-item>
-        <h2>第四步、制作净现值累积概率图</h2>
+        <h2>第四步、计算净现值累积概率</h2>
         <p>
           请根据表3计算得出的结果，将净现值的累计值及其对应概率从小到大按顺序排列，填入到表4中。<strong
             >（精确到小数点后两位）</strong
           >
         </p>
         <p>
-          （点击右侧的“编辑”按钮后可编辑，点击”保存“确认；点击右侧的”删除“按钮后可删除本行；点击右下角的“增加一行”可以新增一行；）
+          <span>(1) 点击右侧的“编辑”按钮后可编辑净现值和概率</span><br>
+          <span>(2) 点击”保存“确认后系统会计算出累计概率</span><br>
+          <span>(3) 点击右侧的”删除“按钮后可删除本行</span><br>
+          <span>(4) 点击右下角的“增加一行”可以新增一行</span>
         </p>
-        <EditableForm1 :dataSource="dataSource5" :columns="columns5" @updateData="handleDataSource5Update"
-          >表5 净现值与其累计概率表</EditableForm1
+        <EditableForm4 :dataSource="dataSource5" :columns="columns5" @updateData="handleDataSource5Update"
+          >表5 净现值与其累计概率表</EditableForm4
         >
       </a-timeline-item>
       <a-timeline-item>
@@ -88,6 +91,20 @@
           但是存在净现值小于零的可能性为 <a-input v-model:value="risk" allowClear style="width: 10%"></a-input>%的风险。
         </div>
       </a-timeline-item>
+      <a-timeline-item>
+        <a-upload
+            v-model:file-list="fileList"
+            list-type="file"
+            accept=".pdf"
+            :max-count="1"
+            action=""
+        >
+          <a-button>
+            <upload-outlined></upload-outlined>
+            上传实验报告
+          </a-button>
+        </a-upload>
+      </a-timeline-item>
     </a-timeline>
   </div>
 </template>
@@ -97,15 +114,20 @@
   import HorizontalTree from '@/pages/exp8/JUECESHU/HorizontalTree.vue';
   import EditableForm1 from '@/pages/exp8/JUECESHU/EditableForm1.vue';
   import EditableForm2 from '@/pages/exp8/JUECESHU/EditableForm2.vue';
+  import EditableForm3 from '@/pages/exp8/JUECESHU/EditableForm3.vue';
+  import EditableForm4 from '@/pages/exp8/JUECESHU/EditableForm4.vue';
   export default {
     components: {
       'a-table': Table,
       HorizontalTree,
       EditableForm1,
       EditableForm2,
+      EditableForm3,
+      EditableForm4
     },
     data() {
       return {
+        fileList:[],
         enpv: 0,
         risk: 0,
         discountRate: 0.08, // 折现率

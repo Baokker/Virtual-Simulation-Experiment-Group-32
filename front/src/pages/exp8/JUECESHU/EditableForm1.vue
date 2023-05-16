@@ -13,7 +13,7 @@
       >
         <div>
           <a-input
-            v-if="editableData[record.key]"
+            v-if="editableData[record.key] && col !== 'cumulativeProbability'"
             v-model:value="editableData[record.key][col]"
             style="margin: -5px 0"
           />
@@ -51,6 +51,7 @@
 // 可以编辑，增减行列的表格
   import { cloneDeep } from 'lodash-es';
   import { Table } from 'ant-design-vue';
+  import { message } from 'ant-design-vue';
 
   export default {
     components: {
@@ -73,6 +74,18 @@
         dataSourceCopy: this.dataSource,
       };
     },
+    computed: {
+      groupedData () {
+        return this.dataSourceCopy.reduce((result, item) => {
+          const key = item.uncertainty;
+          if (!result[key]) {
+            result[key] = [];
+          }
+          result[key].push(item);
+          return result;
+        }, {});
+      }
+    },
     methods: {
       update() {
         this.$emit('updateData', this.dataSourceCopy);
@@ -83,10 +96,29 @@
         this.update();
       },
       save(key) {
-        Object.assign(this.dataSourceCopy.filter((item) => key === item.key)[0], this.editableData[key]);
+        const group = this.groupedData[this.editableData[key].uncertainty];
+        let totalProbability = 0;
+        for (let i = 0; i < group.length; i++) {
+          if (group[i].key === key) {
+            // 计算当前行的probability，加入到总数中
+            totalProbability += parseFloat(this.editableData[key].probability);
+            // 更新当前行
+            Object.assign(group[i], this.editableData[key]);
+          }
+          else {
+            // 更新同组中其它行的 start_year 和 end_year 属性
+            group[i].start_year = this.editableData[key].start_year;
+            group[i].end_year = this.editableData[key].end_year;
+            // 将同组中其它行的probability加入到总数中
+            totalProbability += parseFloat(group[i].probability);
+          }
+        }
         delete this.editableData[key];
         this.editingKey = '';
         this.update();
+        if (totalProbability !== 1) {
+         message.warning('同一种不确定因素的概率之和必须为1')
+        }
       },
       cancel(key) {
         delete this.editableData[key];

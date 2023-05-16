@@ -509,6 +509,12 @@
         for (let i = 0; i < keys.length; i++) {
           tableLength *= levels[keys[i]].length;
         }
+
+        // clear dataSource3
+        while (this.dataSource3.length) {
+          this.dataSource3.pop();
+        }
+
         for (let i = 0; i < tableLength; i++) {
           this.dataSource3.push({
             key: (i + 1).toString(),

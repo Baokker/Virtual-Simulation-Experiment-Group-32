@@ -86,6 +86,20 @@ export default {
       Object.assign(this.dataSourceCopy.filter((item) => key === item.key)[0], this.editableData[key]);
       delete this.editableData[key];
       this.editingKey = '';
+
+      // update cumulativeProbability with the latest probability
+      this.dataSourceCopy.forEach((item, index) => {
+        if (index === 0) {
+          item.cumulativeProbability = Number(item.probability);
+        } else {
+          item.cumulativeProbability = (
+              parseFloat(this.dataSourceCopy[index - 1].cumulativeProbability) +
+              parseFloat(item.probability)
+          ).toFixed(2);
+        }
+      });
+
+      // update data
       this.update();
     },
     cancel(key) {

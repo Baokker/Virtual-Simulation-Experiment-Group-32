@@ -1,5 +1,15 @@
 <template>
   <div>
+    <h2>实验目的</h2>
+    <ol>
+      <li>理解决策树法原理，通过实验计算与操作，掌握如何将其应用于风险分析与评价</li>
+      <li>本实验为课内设计性实验项目，实验学时1学时，完成实验报告1学时</li>
+    </ol>
+    <h2>实验原理</h2>
+    <p>
+      决策树法是根据项目现金流量数据及其发生概率，用决策树列出现金流量序列，并用无风险折现率和概率乘法公式计算每一现金流量序列的净现值及其概率，最后求出净现值期望值和净现值小于零的累计概率，从
+      而估算出项目亏损风险的大小
+    </p>
     <h2>实验要求</h2>
     <p>某项目的有关经济数据如下表一所示。试求该项目的净现值期望值并进行风险决策分析。其中无风险折现率取8%。</p>
     <h2>实验步骤</h2>
@@ -74,9 +84,9 @@
           >
         </p>
         <p>
-          <span>(1) 点击右侧的“编辑”按钮后可编辑净现值和概率</span><br>
-          <span>(2) 点击”保存“确认后系统会计算出累计概率</span><br>
-          <span>(3) 点击右侧的”删除“按钮后可删除本行</span><br>
+          <span>(1) 点击右侧的“编辑”按钮后可编辑净现值和概率</span><br />
+          <span>(2) 点击”保存“确认后系统会计算出累计概率</span><br />
+          <span>(3) 点击右侧的”删除“按钮后可删除本行</span><br />
           <span>(4) 点击右下角的“增加一行”可以新增一行</span>
         </p>
         <EditableForm4 :dataSource="dataSource5" :columns="columns5" @updateData="handleDataSource5Update"
@@ -92,13 +102,7 @@
         </div>
       </a-timeline-item>
       <a-timeline-item>
-        <a-upload
-            v-model:file-list="fileList"
-            list-type="file"
-            accept=".pdf"
-            :max-count="1"
-            action=""
-        >
+        <a-upload v-model:file-list="fileList" list-type="file" accept=".pdf" :max-count="1" action="">
           <a-button>
             <upload-outlined></upload-outlined>
             上传实验报告
@@ -123,11 +127,11 @@
       EditableForm1,
       EditableForm2,
       EditableForm3,
-      EditableForm4
+      EditableForm4,
     },
     data() {
       return {
-        fileList:[],
+        fileList: [],
         enpv: 0,
         risk: 0,
         discountRate: 0.08, // 折现率

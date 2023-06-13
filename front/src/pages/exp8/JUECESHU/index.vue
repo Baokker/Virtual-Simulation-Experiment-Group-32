@@ -20,10 +20,10 @@
         description="根据年金现值公式和终值现值公式，计算出每个不确定因素的净现值，并将数据填入到表2中。数据会动态地显示在下方的决策树中"
       />
       <a-step
-        title="计算每条现金流量序列的净现值、概率及相应概率"
-        description="针对每条现金流量序列，计算出其净现值、概率和加权净现值，并将数据填入到表3中，填入到表4中"
+        title="计算每条实验现金流量序列的净现值、概率及相应概率"
+        description="针对每条实验现金流量序列，计算出其净现值、概率和加权净现值，并将数据填入到表3中"
       />
-      <a-step title="制作净现值累积概率图" description="把净现值从小到大按顺序排列成表，并求出各净现值累积概率" />
+      <a-step title="制作净现值累积概率图" description="将净现值从小到大按顺序排列成表，并求出各净现值累积概率" />
       <a-step title="计算ENPV，得出结论" description="根据净现值与其累计概率表，计算出期望净现值ENPV" />
     </a-steps>
 
@@ -32,9 +32,12 @@
     <a-timeline>
       <a-timeline-item>
         <h2>第一步、查看基础经济数据表</h2>
-        <p>
-          PS 如果需要编辑数据，请点击右侧的“编辑”按钮。请保证每个不确定因素的概率之和为1，并且开始年份和结束年份相同。
-        </p>
+        <p>PS</p>
+        <ul>
+          <li>如果需要编辑数据，请点击右侧的“编辑”按钮进行修改。</li>
+          <li>请保证每个不确定因素的概率之和为1，并且开始年份和结束年份相同。</li>
+          <li>表1下方的图1将会按照表1的数据自动更新，无需手动更改</li>
+        </ul>
         <EditableForm1 :dataSource="dataSource1" :columns="columns1" @updateData="handleDataSource1Update"
           >表1 基础经济数据表</EditableForm1
         >
@@ -46,11 +49,11 @@
       <a-timeline-item>
         <h2>第二步、计算每个不确定因素的净现值</h2>
         <p>
-          请根据年金现值公式和终值现值公式，计算出每个不确定因素的净现值，并将数据填入到表2中。<strong
+          请根据年金现值公式和终值现值公式，计算出每个不确定因素的净现值，并将数据手动填入到表2中。<strong
             >（精确到小数点后两位）</strong
           >
         </p>
-        <p>（点击右侧的“编辑”按钮后可编辑，点击”保存“确认）</p>
+        <p>操作方法：点击右侧的“编辑”按钮后可修改数据，点击”保存“确认</p>
         <EditableForm2 :dataSource="dataSource2" :columns="columns2" @updateData="handleDataSource2Update"
           >表2 不确定因素现值表</EditableForm2
         >
@@ -60,18 +63,18 @@
         </a-tooltip>
       </a-timeline-item>
       <a-timeline-item>
-        <h2>第三步、计算每条现金流量序列</h2>
+        <h2>第三步、计算实验现金流量序列</h2>
         <p>
-          请针对每条现金流量序列，计算出其净现值、概率和加权净现值<strong>（精确到小数点后两位）</strong>，并将数据填入到表3中。
+          请针对每条实验现金流量序列，计算出其净现值、概率和加权净现值<strong>（精确到小数点后两位）</strong>，并将计算数据手动填入到表3中。
         </p>
-        <p>表3中的行数是根据不确定因素自动生成的。</p>
-        <p>（点击右侧的“编辑”按钮后可编辑，点击”保存“确认）</p>
+        <p>表3的行数和编号是根据不确定因素自动生成的，无需更改。</p>
+        <p>操作方法：点击右侧的“编辑”按钮后可修改数据，点击”保存“确认</p>
         <EditableForm3 :dataSource="dataSource3" :columns="columns3" @updateData="handleDataSource3Update"
           >表3 净现值计算表格</EditableForm3
         >
       </a-timeline-item>
       <a-timeline-item>
-        <p>在demo中给出参考的净现值计算表格。</p>
+        <p>在demo中给出参考的净现值计算表格，无需填入数据。</p>
         <EditableForm2 :dataSource="dataSource4" :columns="columns4" @updateData="handleDataSource4Update"
           >表4 净现值计算表格（参考，后续将删去）</EditableForm2
         >
@@ -79,15 +82,16 @@
       <a-timeline-item>
         <h2>第四步、计算净现值累积概率</h2>
         <p>
-          请根据表3计算得出的结果，将净现值的累计值及其对应概率从小到大按顺序排列，填入到表4中。<strong
+          请根据表3计算得出的结果，将净现值的累计值及其对应概率按顺序从小到大排列，手动填入到表4中。<strong
             >（精确到小数点后两位）</strong
           >
         </p>
+        <p>操作方法：</p>
         <p>
-          <span>(1) 点击右侧的“编辑”按钮后可编辑净现值和概率</span><br />
-          <span>(2) 点击”保存“确认后系统会计算出累计概率</span><br />
-          <span>(3) 点击右侧的”删除“按钮后可删除本行</span><br />
-          <span>(4) 点击右下角的“增加一行”可以新增一行</span>
+          <span>(1) 点击右侧的“编辑”按钮后，可以修改净现值和概率</span><br />
+          <span>(2) 点击”保存“并确认后，系统会根据已有的概率，计算出累计概率，无需手动输入</span><br />
+          <span>(3) 点击右侧的”删除“按钮，可将本行删除</span><br />
+          <span>(4) 点击右下角的“增加一行”，可以新增一行数据</span>
         </p>
         <EditableForm4 :dataSource="dataSource5" :columns="columns5" @updateData="handleDataSource5Update"
           >表5 净现值与其累计概率表</EditableForm4
@@ -96,9 +100,9 @@
       <a-timeline-item>
         <div>
           <h2>第五步、计算ENPV，得出结论</h2>
-          <p>根据净现值与其累计概率表，计算出期望净现值ENPV<strong>（精确到小数点后两位）</strong>，并得出结论。</p>
-          本项目的期望净现值(ENPV)为 <a-input v-model:value="enpv" allowClear style="width: 10%"></a-input>万元，
-          但是存在净现值小于零的可能性为 <a-input v-model:value="risk" allowClear style="width: 10%"></a-input>%的风险。
+          <p>根据表5 净现值与其累计概率表，计算出期望净现值ENPV<strong>（精确到小数点后两位）</strong>，填入下表，并得出结论。</p>
+          经计算，本项目的期望净现值(ENPV)为 <a-input v-model:value="enpv" allowClear style="width: 10%"></a-input>（请输入）万元，
+          净现值小于零的可能性为 <a-input v-model:value="risk" allowClear style="width: 10%"></a-input>%（请输入）。
         </div>
       </a-timeline-item>
       <a-timeline-item>
